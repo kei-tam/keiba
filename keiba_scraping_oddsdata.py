@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import datetime
 import time
@@ -7,12 +8,16 @@ import csv
 from io import StringIO
 
 # ヘッドレスモードで起動
-options = webdriver.ChromeOptions()
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.binary_location = "/usr/bin/chromium"
 
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome(
+    executable_path="/usr/bin/chromedriver",
+    options=chrome_options
+)
 
 odds_data_all = []
 odds_data_all.append(["日付","レース","レースID","人気","枠","馬番","印","馬名","単勝オッズ","複勝オッズ下限","複勝オッズ上限"])
