@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import datetime
 import time
 import csv
+from io import StringIO
 
 # ヘッドレスモードで起動
 options = webdriver.ChromeOptions()
@@ -63,9 +64,14 @@ for course in courses :
             print(f"{race_id} のデータ不足のためスキップ")
 
 
-# CSV出力
-with open('odds_data/'+str(today)+'.csv', "w", newline="", encoding="utf-8") as f:
-    writer = csv.writer(f)
-    writer.writerows(odds_data_all)
+# CSVデータを文字列として保存
+csv_buffer = StringIO()
+writer = csv.writer(csv_buffer)
+writer.writerows(odds_data_all)
+
+# ファイル名と書き込み
+blob = bucket.blob(f"odds_data/{today}.csv")
+blob.upload_from_string(csv_buffer.getvalue(), content_type='text/csv')
+
 driver.quit()
 print("終了")
