@@ -39,4 +39,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . ./
 
 # 実行コマンド（main.py を直接起動）
-CMD ["python", "main.py"]
+CMD ["python", "keiba_scraping_oddsdata.py"]
