@@ -20,7 +20,7 @@ today = datetime.datetime.today().date()
 year = 2025
 courses = ["05","09"]
 round = "03"
-dayround = "04"
+dayround = "05"
 
 for course in courses :
     for r  in range(12):
